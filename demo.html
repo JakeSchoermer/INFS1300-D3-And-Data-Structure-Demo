@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>INFS1300 | D3 Demo</title>
+		<script src="js/d3.js" charset="utf-8"></script>=		
+	</head>
+	<body></body>
+		
+		<script>
+			
+			(function() {
+			
+			var width = 960,
+			    height = 500;
+			
+			var JSONData = [
+					  {
+					    "Student Name":"John Smith",
+					    "Student Number":"s12345678",
+					    "DOB":"1/01/1995"
+					  },
+					  {
+					    "Student Name":"John Citizen",
+					    "Student Number":"s14789645",
+					    "DOB":"1/01/1992"
+					  },
+					  {
+					    "Student Name":"Jane Gray",
+					    "Student Number":"s49756314",
+					    "DOB":"1/01/1990"
+					  },
+					  {
+					    "Student Name":"Barney the Dinosaur",
+					    "Student Number":"s42365478",
+					    "DOB":"1980"
+					  }
+					]
+			
+			var svg = d3.select("body").append("svg")
+			    .attr("width", width)
+			    .attr("height", height)
+					.style("background", "#EEEEEE");
+			
+			
+			svg.append("text")
+			.attr("font-size", function(d, i) { return "24"; })
+			.text(function(d){return "Student by Age"})
+			.attr("y", 20)
+			.attr("x", width/2)
+			.attr("text-anchor", function(d) { return "middle"; })
+			.style("text-decoration", "underline");
+						
+			var x_coord = 75;
+			var y_coord = 150;
+			
+			for (var i = 0; i < JSONData.length; i++) {
+				
+				var year = new Date(JSONData[i]["DOB"]).getFullYear();
+				var radius = getRadius(year);
+				
+				
+				var g = svg.append("g")
+			  
+				var circle = g.append("circle")
+					.attr("r", function(d) { return radius; })
+					.style("fill", function(d, i) { return "#d13057"; })
+					.attr("cx", function(d) { return x_coord; })
+			    .attr("cy", function(d) { return y_coord; });
+					
+				var text = g.append("text")
+					.attr("fill", function(d, i) { return "white"; })
+					.text(function(d){return JSONData[i]["Student Name"]})
+					.attr("font-size", function(d, i) { return "18"; })
+					.attr("x", function(d) { return circle.attr('cx') })
+			    .attr("y", function(d) { return circle.attr('cy'); })
+					.attr("text-anchor", function(d) { return "middle"; });
+			
+				x_coord+=radius*2+50;
+				//y_coord+=150;
+			
+		  	JSONData[i]["Student Name"];
+	    }
+			
+			function getRadius(year) {
+				return (2014 - year)*3;
+			}
+			
+			})();
+			
+		</script>
+</html>
